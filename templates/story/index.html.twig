@@ -1,0 +1,84 @@
+{% extends "base.html.twig" %}
+{% block title %}Story List{% endblock %}
+{% block body %}
+    <main class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <label for="from">From: </label>
+                <input type="text" id="from" />
+            </div>
+            <div class="col-md-3">
+                <label for="to">To: </label>
+                <input type="text" id="to" />
+            </div>
+            <div class="col-md-6">
+                <label for="terms">Keywords: </label>
+                <input type="text" id="terms" />
+            </div>
+            <div class="col-md-3">
+                <label for="order">Order by: </label>
+                <select id="order">
+                    <option value="date">Date Recorded</option>
+                    <option value="description">Description</option>
+                    <option value="time">Time Spent</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="descasc">Desc/Asc: </label>
+                <select id="descasc">
+                    <option value="DESC">Descendant</option>
+                    <option value="ASC">Ascendant</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-default" id="first">
+                    First
+                </button>
+                <button class="btn btn-default" id="prev">
+                    Prev
+                </button>
+                <span id="numerator">1</span>/<span id="denominator">{{count}}</span>
+                <button class="btn btn-default" id="next">
+                    Next
+                </button>
+                <button class="btn btn-default" id="last">
+                    Last
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn-primary" id="filter">Filter</button>
+            </div>
+            <div class="col-md-12">
+                <table class="table table-striped table-hover" id="storyTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Description</th>
+                            <th>Time Spent</th>
+                            <th>Date Recorded</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+    {% for story in stories %}
+                        <tr>
+                            <td>{{story.id}}</td>
+                            <td>{{story.description}}</td>
+                            <td>{{story.bookTime|date('H:i:s')}}</td>
+                            <td>{{story.submitDate|date('d.m.Y H:i:s')}}</td>
+                        </tr>
+    {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>ID</th>
+                            <th>Description</th>
+                            <th>Time Spent</th>
+                            <th>Date Recorded</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+{% block javascripts %}<script src="{{ asset('build/list.js') }}"></script>{% endblock %}
